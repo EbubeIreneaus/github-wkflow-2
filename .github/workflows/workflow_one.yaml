@@ -1,0 +1,12 @@
+name: Printing Variable Workflow
+on:
+  workflow_dispatch: 
+jobs:
+  first_job_to_run:
+    name: first job on this workflow
+    runs-on: ubuntu-latest
+    steps:
+      - name: first step on the job
+        run: |
+          echo printing all variable on github
+          echo ${{toJson(github)}}
