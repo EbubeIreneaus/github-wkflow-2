@@ -1,0 +1,21 @@
+name: Composit Demo
+
+on: 
+  workflow_dispatch: 
+
+jobs:
+  my_job:
+    name: My Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: my step
+        id: result_step
+        uses: ./
+        with:
+          num1: 20
+          num2: 44
+      - run: |
+          echo Printing result
+          echo "Result is ${{steps.result_step.outputs.result}}"
+        
+    
