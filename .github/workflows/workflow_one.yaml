@@ -1,25 +1,44 @@
-name: Printing Variable Workflow
-on:
-  workflow_dispatch: 
+name: learning container with concurrency
+on: 
+  workflow_dispatch
 jobs:
-  first_job_to_run:
-    env:
-      GITHUB_CTX: ${{toJson(github)}}
-    name: first job on this workflow
+  concurency_job_1:
     runs-on: ubuntu-latest
+    concurrency:
+      group: currency1
     steps:
-      - name: first step on the job
+      - name: currency 1
+        run: sleep 30
+        
+  concurency_job_2:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: currency1
+    steps:
+      - name: currency 1
+        run: sleep 30
+        
+  build_job:
+    runs-on: ubuntu-latest
+    name: Build Job
+    container: 
+      image: node:20-alpine
+    outputs:
+      NODE_VERSION: ${{steps.buildJobStep1.outputs.node_version}}
+    steps:
+      - name: first steps
+        id: buildJobStep1
         run: |
-          echo printing all variable on github
-          echo "$GITHUB_CTX"
-  second_job_to_run:
-      name: second job on this workflow
-      runs-on: ubuntu-latest
-      env:
-        STRATEGY_CONTEXT: ${{toJSON(strategy)}}
-      steps:
-        - name: printing runner context
-          id: job2
-          run: |
-            echo printing all runner context
-            echo "$STRATEGY_CONTEXT"
+          VERSION_OUTPUT=$(node -v)
+          echo "node_version=$VERSION_OUTPUT" >> $GIHUB_OUTPUT
+  print_job:
+    runs-on: ubuntu-latest
+    needs: build_job
+    name: Print Build Job Ouptut
+    steps:
+      - name: Printing step
+        id: print_node_version
+        run: |
+          echo printing node version
+          echo ${{needs.build_job.outputs.NODE_VERSION}}
+    
