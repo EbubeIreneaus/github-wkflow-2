@@ -38,9 +38,7 @@ jobs:
           path: artifact.txt
       - name: Print artifact step 2
         run: cat artifact.txt
-      - name: download artifact
-        uses: 
-      
+
     
 
     
