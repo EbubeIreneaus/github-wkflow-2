@@ -1,0 +1,46 @@
+name: Artifact Lesson
+
+on:
+  workflow_dispatch:
+
+jobs:
+  checkout_job:
+    name: Checkout to Home Repo
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout step
+        uses: actions/checkout@v6
+        
+  create_artifact:
+    needs: checkout_job
+    name: Create Artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: step 1 create artifact
+        run: ls
+      - name: step 2 create artifacts
+        run: echo "This is a text in a new artifact" > artifact.txt
+      - name: Upload artifact step 3
+        uses: actions/upload-artifact@v4
+        with:
+          name: Artifact-demo
+          path: artifact.txt
+
+  dowload_artifact:
+    name: Download Artifact
+    needs: create_artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: step 1 download artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: Artifact-demo
+          path: artifact.txt
+      - name: Print artifact step 2
+        run: cat artifact.txt
+      - name: download artifact
+        uses: 
+      
+    
+
+    
