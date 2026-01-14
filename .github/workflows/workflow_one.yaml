@@ -30,7 +30,7 @@ jobs:
         id: buildJobStep1
         run: |
           VERSION_OUTPUT=$(node -v)
-          echo "node_version=$VERSION_OUTPUT" >> $GIHUB_OUTPUT
+          echo "node_version=$VERSION_OUTPUT" >> $GITHUB_OUTPUT
   print_job:
     runs-on: ubuntu-latest
     needs: build_job
