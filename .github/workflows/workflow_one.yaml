@@ -5,6 +5,7 @@ jobs:
   first_job:
     name: Main and Only Job
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, window-latest]
         version: [version 1, version 2, version 3]
