@@ -3,12 +3,12 @@ description: A composit compsite
 inputs:
   num1:
     required: true
-    defaults: 0
+    defaults: "0"
   num2:
     required: true
-    defaults: 0
+    defaults: "0"
 outputs:
-  result: ${{steps.step1Id.output.result}}
+  result: ${{steps.step1Id.outputs.result}}
 runs:
   using: composite
   steps:
@@ -17,6 +17,6 @@ runs:
       run: |
         num1=${{inputs.num1}}
         num2=${{inputs.num2}}
-        result=${{num1+num2}}
+        result=$((num1+num2))
         echo "result=$result" >> $GITHUB_OUTPUT
       
