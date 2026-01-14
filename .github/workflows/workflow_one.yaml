@@ -11,15 +11,15 @@ jobs:
       - name: first step on the job
         run: |
           echo printing all variable on github
-          echo '$GITHUB_CTX'
+          echo "$GITHUB_CTX"
   second_job_to_run:
       name: second job on this workflow
       runs-on: ubuntu-latest
       env:
-        RUNNER_CONTEXT: ${{toJSON(strategy)}}
+        STRATEGY_CONTEXT: ${{toJSON(strategy)}}
       steps:
         - name: printing runner context
           id: job2
           run: |
             echo printing all runner context
-            echo '$RUNNER_CONTEXT'
+            echo "$STRATEGY_CONTEXT"
